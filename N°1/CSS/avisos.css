@@ -1,0 +1,112 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background: #f9f9f9;
+  color: #333;
+}
+
+.site-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: #666;
+}
+
+/* Tabla principal */
+.tabla-avisos {
+  width: 100%;
+  border-collapse: collapse;
+  margin: auto;
+  background: white;
+}
+
+.tabla-avisos th, .tabla-avisos td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.tabla-avisos tr:hover {
+  background: #eef;
+  cursor: pointer;
+}
+
+.detalle-datos {
+  margin: 20px 0;
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ccc;
+}
+
+/* Galería */
+.galeria {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.galeria img {
+  width: 320px;
+  height: 240px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+}
+
+.acciones {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 8px 12px;
+  background: #0077cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.btn:hover {
+  background: #005fa3;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal[hidden] {
+  display: none !important;
+}
+
+.modal-contenido {
+  position: relative;
+  background: white;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.modal img {
+  width: 800px;
+  height: 600px;
+  object-fit: cover;
+}
+
+.cerrar {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+

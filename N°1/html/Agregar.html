@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nuevo aviso de adopción</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../CSS/agregar.css">
+</head>
+<body>
+  <div class="main-container">
+        <div id="val-box" hidden>
+            <h2 id="val-msg"></h2>
+            <ul id="val-list"></ul>
+        </div>
+  <header class="site-header">
+    <h1>Formulario para nuevo aviso de adopción</h1>
+    <p class="subtitle">Porfavor complete el siguiente formulario</p>
+  </header>
+
+  <main class="container">
+    <!-- Tip: tu JS puede usar este dialog para la confirmación -->
+    <dialog id="dlgConfirm">
+      <form method="dialog" class="dialog-body">
+        <h2>¿Está seguro que desea agregar este aviso de adopción?</h2>
+        <div class="dialog-actions">
+          <button id="btnConfirmSi" value="si" class="btn primary">Sí, estoy seguro</button>
+          <button id="btnConfirmNo" value="no" class="btn">No, no estoy seguro, quiero volver al formulario</button>
+        </div>
+      </form>
+    </dialog>
+
+    <section id="mensajeExito" class="exito" hidden>
+      <h2>Hemos recibido la información de adopción, ¡muchas gracias y suerte!</h2>
+      <a href="../html/Portada.html" class="btn primary">Volver a la portada</a>
+    </section>
+
+    <form name="myForm" method="post" enctype="multipart/form-data">
+      <!-- ========== Zona de ubicación ========== -->
+      <table class="form-table">
+        <caption>Ubicación</caption>
+        <tbody>
+          <tr>
+            <th scope="row"><label for="select-region">Región <span class="req">*</span></label></th>
+            <td>
+              <select id="select-region" name="select-region" required>
+                <option value="">Seleccione una región</option>
+                <!-- Se llena desde regiones_comunas.js -->
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><label for="select-commune">Comuna <span class="req">*</span></label></th>
+            <td>
+              <select id="select-commune" name="select-commune" required>
+                <option value="">Seleccione una comuna</option>
+                <!-- Se habilita y llena según la región -->
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><label for="black-sector">Sector <span class="req"></span></label></th>
+            <td>
+              <input id="black-sector" name="black-sector" type="text" maxlength="100"
+                     placeholder="Ej: Centro, Villa Las Rosas, Km 12, etc." />
+              <div class="hint">Máximo 100 caracteres.</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- ========== ¿Contacto de esta publicación? ========== -->
+      <table class="form-table" aria-describedby="ayuda-contacto">
+        <caption>¿Contacto de esta publicación?</caption>
+        <tbody>
+          <tr>
+            <th scope="row"><label for="name">Nombre <span class="req">*</span></label></th>
+            <td>
+              <input id="name" name="name" type="text" required placeholder="Nombre completo" />
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><label for="email">Email <span class="req">*</span></label></th>
+            <td>
+              <input id="email" name="email" type="email" required placeholder="nombre@gmail.com" />
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><label for="telefono">Número de teléfono <span class="req"></span></label></th>
+            <td>
+              <input id="telefono" name="telefono" type="tel"
+                     inputmode="tel" placeholder="+569.12345678"/>
+              <div class="hint">Formato sugerido: +569.12345678</div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Contactar por <span class="req"></span></th>
+            <td>
+              <div id="contactosOpciones" class="stack gap-xs">
+                <label><input type="checkbox" value="whatsapp"> WhatsApp</label>
+                <label><input type="checkbox" value="telegram"> Telegram</label>
+                <label><input type="checkbox" value="x"> X</label>
+                <label><input type="checkbox" value="instagram"> Instagram</label>
+                <label><input type="checkbox" value="tiktok"> TikTok</label>
+                <label><input type="checkbox" value="otra"> Otra</label>
+              </div>
+
+              <div id="contactosExtras" class="stack gap-xs"></div>
+
+              <div class="hint">
+                Puedes seleccionar hasta 5 medios de contacto.  
+                Para cada medio puedes informar opcionalmente un ID o URL (4–50 caracteres).
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p id="ayuda-contacto" class="sr-only">Sección para datos de contacto del anunciante.</p>
+
+      <!-- ========== ¿Qué mascota ofrece en adopción? ========== -->
+      <table class="form-table" aria-describedby="ayuda-mascota">
+        <caption>¿Qué mascota ofrece en adopción?</caption>
+        <tbody>
+          <tr>
+            <th scope="row"><label for="tipe">Tipo <span class="req">*</span></label></th>
+            <td>
+              <select id="tipe" name="tipe" required>
+                <option value="" disabled selected>Selecciona</option>
+                <option value="perro">Perro</option>
+                <option value="gato">Gato</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><label for="amount">Cantidad <span class="req">*</span></label></th>
+            <td>
+              <input id="amount" name="amount" type="number" required/>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><label for="age">Edad <span class="req">*</span></label></th>
+            <td class="age-row">
+              <input id="age" name="age" type="number" required/>
+              <label for="ageUnit" class="sr-only">Unidad de medida de la edad</label>
+              <select id="ageUnit" name="ageUnit" required>
+                <option value="" disabled selected>Unidad</option>
+                <option value="meses">Meses</option>
+                <option value="años">Años</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><label for="deliveryDate">Fecha disponible para la entrega <span class="req">*</span></label></th>
+            <td>
+              <input id="deliveryDate" name="deliveryDate" type="datetime-local" required
+                     data-prefill="now-plus-3h"/>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"><label for="description">Descripción<span class="req"></span></label></th>
+            <td>
+              <textarea id="description" name="description" cols="50" rows="10"
+                        placeholder="Describe carácter, tamaño, condiciones de entrega, etc."></textarea>
+              <div class="hint">Hasta 1500 caracteres.</div>
+            </td>
+          <tr>
+            <th scope="row"><label for="foto1">Foto(s) <span class="req">*</span></label></th>
+            <td>
+              <div id="fotosWrap" class="stack" data-max-fotos="5">
+                <input id="foto1" name="fotos[]" type="file" accept="image/*" required>
+              </div>
+
+              <button type="button" id="btnAgregarFoto" class="btn">Agregar otra foto</button>
+
+              <!-- Vista previa apilada -->
+              <div id="previewFotos" class="preview-stack"></div>
+              <div class="hint">Máximo 5 fotografías.</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p id="ayuda-mascota" class="sr-only">Sección para datos de la mascota, cantidad, edad, fecha de entrega, descripción y fotos.</p>
+
+      <!-- Acciones -->
+      <div class="form-actions">
+        <button type="button" id="submit-btn">Agregar este aviso de adopción</button>
+        <a href="../html/Portada.html" class="btn">Cancelar y volver</a>
+      </div>
+    </form>
+  </main>
+  <script src="../js/validador_agregar.js"></script>
+  <script src="../js/regiones_comunas.js"></script>
+</body>
+</html>
