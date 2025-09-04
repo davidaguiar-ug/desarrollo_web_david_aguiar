@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Listado de Avisos de Adopción</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../CSS/avisos.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Listado de Avisos de Adopción</h1>
+    <p class="subtitle">Haz clic en un aviso para ver más detalles</p>
+  </header>
+
+  <!-- Listado principal -->
+  <main id="listado">
+    <table class="tabla-avisos">
+      <thead>
+        <tr>
+          <th>Fecha publicación</th>
+          <th>Fecha entrega</th>
+          <th>Comuna</th>
+          <th>Sector</th>
+          <th>Cantidad Tipo Edad</th>
+          <th>Nombre contacto</th>
+          <th>Total fotos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Cada fila lleva data con las fotos -->
+        <tr data-id="1" data-fotos="../images/perro5meses.jpg,../images/perro5meses.2.jpg,../images/perro5meses.3.jpg">
+          <td>2025-09-01</td>
+          <td>2025-09-02</td>
+          <td>Santiago</td>
+          <td>Angamos 350</td>
+          <td>1 Perros (5 meses)</td>
+          <td>María López</td>
+          <td>3</td>
+        </tr>
+        <tr data-id="2" data-fotos="../images/perro2años.jpg,../images/perro2años.2.jpg">
+          <td>2025-08-30</td>
+          <td>2025-09-02</td>
+          <td>Puente Alto</td>
+          <td>Pje. Caleta Bandurrias 997</td>
+          <td>1 perro (2 años)</td>
+          <td>Carlos Pérez</td>
+          <td>2</td>
+        </tr>
+        <tr data-id="3" data-fotos="../images/3gatos4meses.jpg,../images/3gatos4meses.2.jpg,../images/3gatos4meses.3.jpg,../images/3gatos4meses.4.jpg,../images/3gatos4meses.5.jpg">
+          <td>2025-08-13</td>
+          <td>2025-08-20</td>
+          <td>Ñuñoa</td>
+          <td>Las Olas 4600</td>
+          <td>3 gatos (4 meses)</td>
+          <td>Andrea Ruiz</td>
+          <td>5</td>
+        </tr>
+        <tr data-id="4" data-fotos="../images/gato5meses.jpg">
+          <td>2025-07-26</td>
+          <td>2025-08-07</td>
+          <td>La Cisterna</td>
+          <td>Isabelle La Catolica 550</td>
+          <td>1 Gato (5 meses)</td>
+          <td>Felipe Torres</td>
+          <td>1</td>
+        </tr>
+        <tr data-id="5" data-fotos="../images/2gatos2meses.jpg,../images/2gatos2meses.2.jpg,../images/2gatos2meses.3.jpg,../images/2gatos2meses.4.jpg">
+          <td>2025-05-04</td>
+          <td>2025-05-12</td>
+          <td>Maipu</td>
+          <td>Del Rey 475</td>
+          <td>2 gatos (2 meses)</td>
+          <td>Ana González</td>
+          <td>4</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Detalle de un aviso -->
+  <section id="detalle" hidden>
+    <h2>Detalle del Aviso</h2>
+    <div class="detalle-datos">
+      <p><strong>Fecha publicación:</strong> <span id="d-fechaPub"></span></p>
+      <p><strong>Fecha entrega:</strong> <span id="d-fechaEnt"></span></p>
+      <p><strong>Comuna:</strong> <span id="d-comuna"></span></p>
+      <p><strong>Sector:</strong> <span id="d-sector"></span></p>
+      <p><strong>Cantidad Tipo Edad:</strong> <span id="d-cantidad"></span></p>
+      <p><strong>Nombre contacto:</strong> <span id="d-contacto"></span></p>
+      <p><strong>Total fotos:</strong> <span id="d-fotos"></span></p>
+    </div>
+
+    <h3>Fotos</h3>
+    <div id="galeria" class="galeria"></div>
+
+    <div class="acciones">
+      <button id="volverListado">Volver al listado</button>
+      <a href="../html/Portada.html" class="btn">Volver a la portada</a>
+    </div>
+  </section>
+
+  <!-- Modal para foto grande -->
+    <div id="modalFoto" class="modal" hidden>
+    <div class="modal-contenido">
+        <span id="cerrarModal" class="cerrar">&times;</span>
+        <img id="modalImg" src="" alt="">
+    </div>
+    </div>
+
+
+  <script>
+    // Mostrar detalle al hacer clic en fila
+    document.querySelectorAll("tbody tr").forEach(tr => {
+      tr.addEventListener("click", () => {
+        document.getElementById("listado").hidden = true;
+        document.getElementById("detalle").hidden = false;
+
+        const celdas = tr.querySelectorAll("td");
+        document.getElementById("d-fechaPub").textContent = celdas[0].textContent;
+        document.getElementById("d-fechaEnt").textContent = celdas[1].textContent;
+        document.getElementById("d-comuna").textContent = celdas[2].textContent;
+        document.getElementById("d-sector").textContent = celdas[3].textContent;
+        document.getElementById("d-cantidad").textContent = celdas[4].textContent;
+        document.getElementById("d-contacto").textContent = celdas[5].textContent;
+        document.getElementById("d-fotos").textContent = celdas[6].textContent;
+
+        // cargar fotos específicas
+        const galeria = document.getElementById("galeria");
+        galeria.innerHTML = ""; // limpiar
+        const fotos = tr.dataset.fotos.split(",");
+        fotos.forEach(url => {
+          const img = document.createElement("img");
+          img.src = url;
+          img.alt = "Foto aviso";
+          galeria.appendChild(img);
+
+          img.addEventListener("click", () => {
+            document.getElementById("modalFoto").hidden = false;
+            document.getElementById("modalImg").src = url.replace("320x240", "800x600");
+          });
+        });
+      });
+    });
+
+    // Volver al listado
+    document.getElementById("volverListado").addEventListener("click", () => {
+      document.getElementById("detalle").hidden = true;
+      document.getElementById("listado").hidden = false;
+    });
+
+    // Modal de fotos
+    const modal = document.getElementById("modalFoto");
+    const cerrar = document.getElementById("cerrarModal");
+    cerrar.addEventListener("click", () => {
+      modal.hidden = true;
+    });
+  </script>
+</body>
+</html>
