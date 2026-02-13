@@ -1,2 +1,2 @@
 # desarrollo_web_david_aguiar
-Repositorio para el curso de Desarrollo de Aplicaciones Web
+el archivo fue subido como un zip porque git daba problemas para archivos muy grandes
